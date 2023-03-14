@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.util.Base64;
 
 /**
- * @author TRITRONIK-PC_10040
+ * @author kurakuraninja
  * @since 14/03/2023
  */
 
@@ -25,10 +25,10 @@ public class SampleCurl {
             URLConnection uc;
             uc = url.openConnection();
 
-            uc.setRequestProperty("Accept", "application/json");
-
             String userpass = username + ":" + password;
             String basicAuth = "Basic " + Base64.getEncoder().encodeToString(userpass.getBytes());//+ new String(new Base64().encode(userpass.getBytes()));
+
+            uc.setRequestProperty("Accept", "application/json");
             uc.setRequestProperty("Authorization", basicAuth);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(uc.getInputStream()));
@@ -41,6 +41,8 @@ public class SampleCurl {
             }
             String result = builder.toString();
             System.out.println(result);
+
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
